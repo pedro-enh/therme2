@@ -13,8 +13,6 @@ import useSWR from 'swr';
 import { PaginatedResult } from '@/api/http';
 import Pagination from '@/components/elements/Pagination';
 import { useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGamepad } from '@fortawesome/free-solid-svg-icons';
 
 export default () => {
     const { search } = useLocation();
@@ -52,21 +50,19 @@ export default () => {
 
     return (
         <PageContentBlock className='content-dashboard' title={'Dashboard'} showFlashKey={'dashboard'}>
-            <div css={tw`mb-8 mt-4 flex justify-between items-center bg-black/40 p-4 rounded-xl border border-neutral-700/50 shadow-neon`}>
-                <h1 css={tw`text-2xl font-bold text-white flex items-center gap-3 m-0`}>
-                    <FontAwesomeIcon icon={faGamepad} css={tw`text-accent`} />
-                    <span style={{ 
-                        background: 'linear-gradient(135deg, #fff 0%, #aaa 100%)', 
-                        WebkitBackgroundClip: 'text', 
-                        WebkitTextFillColor: 'transparent' 
-                    }}>
+            <div css={tw`mb-6 mt-4 flex justify-between items-end border-b border-neutral-800 pb-4`}>
+                <div>
+                    <h1 css={tw`text-2xl font-bold tracking-tight text-white m-0`}>
                         {showOnlyAdmin ? "Other Servers" : 'Your Servers'}
-                    </span>
-                </h1>
+                    </h1>
+                    <p css={tw`text-sm text-neutral-400 mt-1`}>
+                        Manage and control your active instances.
+                    </p>
+                </div>
                 {rootAdmin && (
-                    <div css={tw`flex items-center`}>
-                        <p css={tw`uppercase text-xs font-bold text-neutral-400 mr-3 tracking-wider`}>
-                            {showOnlyAdmin ? "Showing others' servers" : 'Showing your servers'}
+                    <div css={tw`flex items-center bg-neutral-900 border border-neutral-800 rounded-lg py-2 px-3`}>
+                        <p css={tw`text-sm font-medium text-neutral-300 mr-3`}>
+                            Show Admin
                         </p>
                         <Switch
                             name={'show_all_servers'}
@@ -85,17 +81,17 @@ export default () => {
                 <Pagination data={servers} onPageSelect={setPage}>
                     {({ items }) =>
                         items.length > 0 ? (
-                            <div css={tw`grid grid-cols-1 gap-2`}>
-                                {items.map((server, index) => (
-                                    <ServerRow key={server.uuid} server={server} css={index > 0 ? tw`mt-2` : undefined} />
+                            <div css={tw`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`}>
+                                {items.map((server) => (
+                                    <ServerRow key={server.uuid} server={server} />
                                 ))}
                             </div>
                         ) : (
-                            <div css={tw`mt-12 text-center bg-black/30 p-12 rounded-2xl border border-neutral-700/30`}>
-                                <p css={tw`text-lg font-medium text-neutral-400`}>
+                            <div css={tw`mt-12 flex flex-col items-center justify-center p-12 rounded-xl border border-neutral-800 border-dashed bg-neutral-900/20`}>
+                                <p css={tw`text-lg font-medium text-neutral-300`}>
                                     {showOnlyAdmin
-                                        ? 'There are no other servers to display.'
-                                        : 'There are no servers associated with your account.'}
+                                        ? 'No other servers found.'
+                                        : 'You do not have any servers yet.'}
                                 </p>
                             </div>
                         )

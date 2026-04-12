@@ -6,7 +6,7 @@ import { faBars, faCogs, faLayerGroup, faSignOutAlt } from '@fortawesome/free-so
 import { useStoreState } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import SearchContainer from '@/components/dashboard/search/SearchContainer';
-import tw, { theme } from 'twin.macro';
+import tw from 'twin.macro';
 import styled from 'styled-components/macro';
 import http from '@/api/http';
 import SpinnerOverlay from '@/components/elements/SpinnerOverlay';
@@ -17,30 +17,24 @@ const RightNavigation = styled.div`
     & > a,
     & > button,
     & > .navigation-link {
-        ${tw`flex items-center h-full no-underline text-neutral-400 px-6 cursor-pointer transition-all duration-300 relative`};
+        ${tw`flex items-center h-full no-underline text-neutral-400 px-6 cursor-pointer transition-colors duration-200 relative`};
 
         &:active,
         &:hover {
-            ${tw`text-white`};
-            background: rgba(0, 255, 136, 0.05);
+            ${tw`text-neutral-100 bg-neutral-800/30`};
         }
 
         &:active,
         &:hover,
         &.active {
-            box-shadow: inset 0 -3px ${theme`colors.cyan.600`.toString()};
-            color: #00ff88;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
+            ${tw`text-white`};
         }
     }
 `;
 
 const onTriggerNavButton = () => {
     const sidebar = document.getElementById('sidebar');
-
-    if (sidebar) {
-        sidebar.classList.toggle('active-nav');
-    }
+    if (sidebar) sidebar.classList.toggle('active-nav');
 };
 
 export default () => {
@@ -70,11 +64,10 @@ export default () => {
         <div 
             className={'topbar sticky top-0 z-50'} 
             style={{ 
-                background: 'rgba(5, 5, 5, 0.65)', 
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                borderBottom: '1px solid rgba(0, 255, 136, 0.1)',
-                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)'
+                background: 'rgba(0, 0, 0, 0.8)', 
+                backdropFilter: 'saturate(180%) blur(5px)',
+                WebkitBackdropFilter: 'saturate(180%) blur(5px)',
+                borderBottom: '1px solid #27272a',
             }}
         >
             <SpinnerOverlay visible={isLoggingOut} />
@@ -88,21 +81,14 @@ export default () => {
                     </button>
                 )}
 
-                <div id={'logo'} className={'flex-1 px-4'}>
+                <div id={'logo'} className={'flex-1 px-6'}>
                     <Link
                         to={'/'}
                         className={
-                            'text-2xl font-header font-bold no-underline text-white transition-all duration-300 flex items-center gap-2'
+                            'text-xl font-sans font-bold tracking-tight no-underline text-white transition-colors duration-300 flex items-center gap-2 hover:text-neutral-300'
                         }
                     >
-                        <span style={{ 
-                            background: 'linear-gradient(135deg, #00ff88 0%, #00cc66 100%)', 
-                            WebkitBackgroundClip: 'text', 
-                            WebkitTextFillColor: 'transparent',
-                            textShadow: '0 0 20px rgba(0, 255, 136, 0.3)'
-                        }}>
-                            {name}
-                        </span>
+                        {name}
                     </Link>
                 </div>
 
@@ -122,7 +108,7 @@ export default () => {
                     )}
                     <Tooltip placement={'bottom'} content={'Account Settings'}>
                         <NavLink to={'/account'}>
-                            <span className={'flex items-center w-6 h-6 rounded-full overflow-hidden border border-neutral-700 hover:border-accent transition-colors shadow-none hover:shadow-neon'}>
+                            <span className={'flex items-center w-7 h-7 rounded-full overflow-hidden border border-neutral-700 hover:border-neutral-500 transition-colors'}>
                                 <Avatar.User />
                             </span>
                         </NavLink>

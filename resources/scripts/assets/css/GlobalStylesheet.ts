@@ -3,12 +3,9 @@ import { createGlobalStyle } from 'styled-components/macro';
 
 export default createGlobalStyle`
     body {
-        ${tw`font-sans text-neutral-200`};
+        ${tw`font-sans text-neutral-300`};
         letter-spacing: 0.015em;
-        background-color: #050505;
-        background-image: 
-            radial-gradient(circle at 15% 50%, rgba(0, 255, 136, 0.03), transparent 25%),
-            radial-gradient(circle at 85% 30%, rgba(0, 255, 136, 0.04), transparent 25%);
+        background-color: #000000;
         background-attachment: fixed;
     }
 
@@ -17,7 +14,7 @@ export default createGlobalStyle`
     }
 
     p {
-        ${tw`text-neutral-300 leading-snug font-sans`};
+        ${tw`text-neutral-400 leading-snug font-sans`};
     }
 
     form {
@@ -40,19 +37,19 @@ export default createGlobalStyle`
 
     /* Scroll Bar Style */
     ::-webkit-scrollbar {
-        background: rgba(0,0,0,0.2);
-        width: 10px;
-        height: 10px;
+        background: transparent;
+        width: 8px;
+        height: 8px;
     }
 
     ::-webkit-scrollbar-thumb {
-        background: #1e293b;
-        border-radius: 5px;
-        transition: background 0.3s;
+        background: #27272a;
+        border-radius: 4px;
+        transition: background 0.2s;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: #00ff88;
+        background: #3f3f46;
     }
 
     ::-webkit-scrollbar-track-piece {
