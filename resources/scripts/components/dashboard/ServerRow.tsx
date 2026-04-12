@@ -85,7 +85,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
 
             <div css={tw`mt-auto`}>
                 <div css={tw`mb-4`}>
-                    <div css={tw`flex items-center text-sm text-neutral-400 font-mono bg-neutral-900/50 w-fit px-2 py-1 rounded border border-neutral-800`}>
+                    <div css={tw`inline-flex items-center text-sm text-neutral-400 font-mono bg-neutral-900/50 px-2 py-1 rounded border border-neutral-800`}>
                         <FontAwesomeIcon icon={faEthernet} css={tw`text-neutral-500 mr-2`} />
                         {server.allocations
                             .filter((alloc) => alloc.isDefault)
