@@ -27,11 +27,10 @@ const IconDescription = styled.p<{ $alarm: boolean }>`
 `;
 
 const StatusIndicatorBox = styled(Link)<{ $status: ServerPowerState | undefined }>`
-    ${tw`grid grid-cols-12 gap-4 relative rounded-xl p-4 transition-all duration-300 no-underline text-neutral-200 mb-4`};
+    ${tw`grid grid-cols-12 gap-4 relative rounded-xl p-4 transition-all duration-300 no-underline text-neutral-200 mb-4 shadow-glass`};
     background: rgba(15, 23, 42, 0.4);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
     &:hover {
         background: rgba(15, 23, 42, 0.7);
@@ -51,7 +50,7 @@ const StatusIndicatorBox = styled(Link)<{ $status: ServerPowerState | undefined 
             !$status || $status === 'offline'
                 ? tw`bg-red-500 text-red-500`
                 : $status === 'running'
-                ? tw`bg-[#00ff88] text-[#00ff88]`
+                ? tw`bg-accent text-accent`
                 : tw`bg-yellow-500 text-yellow-500`};
     }
 
@@ -105,7 +104,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
         <StatusIndicatorBox to={`/server/${server.id}`} className={className} $status={stats?.status}>
             <div css={tw`flex items-center col-span-12 sm:col-span-5 lg:col-span-6`}>
                 <div className={'icon mr-4'} css={tw`bg-black/30 p-3 rounded-lg border border-neutral-700/50 shadow-inner`}>
-                    <FontAwesomeIcon icon={faServer} css={tw`text-[#00ff88] text-xl`} />
+                    <FontAwesomeIcon icon={faServer} css={tw`text-accent text-xl`} />
                 </div>
                 <div>
                     <p css={tw`text-lg font-semibold text-white break-words`}>{server.name}</p>
@@ -132,7 +131,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
                 {!stats || isSuspended ? (
                     isSuspended ? (
                         <div css={tw`flex-1 text-center`}>
-                            <span css={tw`bg-red-500/20 border border-red-500/50 rounded-lg px-3 py-1 text-red-400 text-sm font-semibold tracking-wide shadow-[0_0_10px_rgba(239,68,68,0.2)]`}>
+                            <span css={tw`bg-red-500/20 border border-red-500/50 rounded-lg px-3 py-1 text-red-400 text-sm font-semibold tracking-wide shadow-none`}>
                                 {server.status === 'suspended' ? 'SUSPENDED' : 'CONNECTION ERROR'}
                             </span>
                         </div>

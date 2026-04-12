@@ -122,7 +122,7 @@ export default () => {
                     )}
                     <Tooltip placement={'bottom'} content={'Account Settings'}>
                         <NavLink to={'/account'}>
-                            <span className={'flex items-center w-6 h-6 rounded-full overflow-hidden border border-neutral-700 hover:border-[#00ff88] transition-colors shadow-[0_0_10px_rgba(0,255,136,0)] hover:shadow-[0_0_10px_rgba(0,255,136,0.3)]'}>
+                            <span className={'flex items-center w-6 h-6 rounded-full overflow-hidden border border-neutral-700 hover:border-accent transition-colors shadow-none hover:shadow-neon'}>
                                 <Avatar.User />
                             </span>
                         </NavLink>

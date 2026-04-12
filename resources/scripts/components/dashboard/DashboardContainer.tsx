@@ -54,7 +54,7 @@ export default () => {
         <PageContentBlock className='content-dashboard' title={'Dashboard'} showFlashKey={'dashboard'}>
             <div css={tw`mb-8 mt-4 flex justify-between items-center bg-black/40 p-4 rounded-xl border border-neutral-700/50 shadow-neon`}>
                 <h1 css={tw`text-2xl font-bold text-white flex items-center gap-3 m-0`}>
-                    <FontAwesomeIcon icon={faGamepad} css={tw`text-[#00ff88]`} />
+                    <FontAwesomeIcon icon={faGamepad} css={tw`text-accent`} />
                     <span style={{ 
                         background: 'linear-gradient(135deg, #fff 0%, #aaa 100%)', 
                         WebkitBackgroundClip: 'text', 
