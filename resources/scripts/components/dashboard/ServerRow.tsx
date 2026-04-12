@@ -102,7 +102,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
     const cpuLimit = server.limits.cpu !== 0 ? server.limits.cpu + ' %' : 'Unlimited';
 
     return (
-        <StatusIndicatorBox to={\`/server/\${server.id}\`} className={className} $status={stats?.status}>
+        <StatusIndicatorBox to={`/server/${server.id}`} className={className} $status={stats?.status}>
             <div css={tw`flex items-center col-span-12 sm:col-span-5 lg:col-span-6`}>
                 <div className={'icon mr-4'} css={tw`bg-black/30 p-3 rounded-lg border border-neutral-700/50 shadow-inner`}>
                     <FontAwesomeIcon icon={faServer} css={tw`text-[#00ff88] text-xl`} />
