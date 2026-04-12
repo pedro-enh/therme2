@@ -159,7 +159,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
                                     {stats.cpuUsagePercent.toFixed(2)} %
                                 </IconDescription>
                             </div>
-                            <p css={tw`text-[10px] text-neutral-500 uppercase tracking-wider text-center mt-1`}>/ {cpuLimit}</p>
+                            <p css={tw`text-2xs text-neutral-500 uppercase tracking-wider text-center mt-1`}>/ {cpuLimit}</p>
                         </div>
                         <div css={tw`flex-1 sm:block hidden border-l border-neutral-700/50 pl-2`}>
                             <div css={tw`flex justify-center items-center`}>
@@ -168,7 +168,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
                                     {bytesToString(stats.memoryUsageInBytes)}
                                 </IconDescription>
                             </div>
-                            <p css={tw`text-[10px] text-neutral-500 uppercase tracking-wider text-center mt-1`}>/ {memoryLimit}</p>
+                            <p css={tw`text-2xs text-neutral-500 uppercase tracking-wider text-center mt-1`}>/ {memoryLimit}</p>
                         </div>
                         <div css={tw`flex-1 sm:block hidden border-l border-neutral-700/50 pl-2`}>
                             <div css={tw`flex justify-center items-center`}>
@@ -177,7 +177,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
                                     {bytesToString(stats.diskUsageInBytes)}
                                 </IconDescription>
                             </div>
-                            <p css={tw`text-[10px] text-neutral-500 uppercase tracking-wider text-center mt-1`}>/ {diskLimit}</p>
+                            <p css={tw`text-2xs text-neutral-500 uppercase tracking-wider text-center mt-1`}>/ {diskLimit}</p>
                         </div>
                     </React.Fragment>
                 )}
