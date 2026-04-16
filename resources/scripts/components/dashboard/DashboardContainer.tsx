@@ -54,24 +54,12 @@ export default () => {
 
     return (
         <PageContentBlock className='content-dashboard' title={'Dashboard'} showFlashKey={'dashboard'}>
-            <div css={tw`mb-10 mt-8 flex justify-between items-end`}>
+            <div css={tw`mb-12 mt-10 flex justify-between items-end`}>
                 <div>
-                    <h1 css={tw`text-4xl font-bold tracking-tight text-white m-0`} style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
-                        Hi, <span css={tw`text-blue-100`}>{formattedUsername}</span>
+                    <h1 css={tw`text-5xl font-black tracking-tighter text-white m-0`} style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
+                        Hi, <span css={tw`text-blue-500`}>{formattedUsername}</span>
                     </h1>
                 </div>
-                {rootAdmin && (
-                    <div css={tw`flex items-center bg-neutral-900 border border-neutral-800 rounded-lg py-2 px-3`}>
-                        <p css={tw`text-sm font-medium text-neutral-300 mr-3`}>
-                            Show Admin
-                        </p>
-                        <Switch
-                            name={'show_all_servers'}
-                            defaultChecked={showOnlyAdmin}
-                            onChange={() => setShowOnlyAdmin((s) => !s)}
-                        />
-                    </div>
-                )}
             </div>
             
             <div css={tw`flex flex-col lg:flex-row gap-8`}>
@@ -90,7 +78,7 @@ export default () => {
                                         ))}
                                     </div>
                                 ) : (
-                                    <div css={tw`mt-12 flex flex-col items-center justify-center p-12 rounded-xl border border-neutral-800 border-dashed bg-neutral-900/20`}>
+                                    <div css={tw`mt-12 flex flex-col items-center justify-center p-12 rounded-2xl border border-neutral-800 border-dashed bg-neutral-900/20`}>
                                         <p css={tw`text-lg font-medium text-neutral-300`}>
                                             {showOnlyAdmin
                                                 ? 'No other servers found.'
@@ -102,9 +90,9 @@ export default () => {
                         </Pagination>
                     )}
                     
-                    <div css={tw`mt-6`}>
-                        <p css={tw`text-sm font-semibold text-neutral-400 mb-1`}>Not finding your server?</p>
-                        <p css={tw`text-xs text-neutral-500`}>
+                    <div css={tw`mt-8`}>
+                        <p css={tw`text-sm font-bold text-neutral-400 mb-1 uppercase tracking-wider`}>Not finding your server?</p>
+                        <p css={tw`text-xs text-neutral-500 leading-relaxed`}>
                             You can try searching for it using the top search icon or checking if<br/>
                             it's still paid for in the Account -{'>'} Billing menu.
                         </p>
@@ -112,19 +100,34 @@ export default () => {
                 </div>
 
                 <div css={tw`w-full lg:w-80 flex-shrink-0 hidden lg:block`}>
-                    <div css={tw`bg-[#161821] rounded-xl p-6 relative overflow-hidden h-[300px] shadow-lg`} style={{ border: '1px solid #232736' }}>
-                        <h2 css={tw`text-xl font-bold text-white mb-4 relative z-10 leading-snug tracking-tight`}>
+                    <div css={tw`bg-[#161821] rounded-2xl p-8 relative overflow-hidden h-[380px] shadow-2xl border border-[#1e202d]`}>
+                        <h2 css={tw`text-2xl font-black text-white mb-6 relative z-10 leading-tight tracking-tighter`}>
                             All game servers now<br/>come with free DDoS<br/>Protection
                         </h2>
-                        <p css={tw`text-sm text-neutral-400 relative z-10 leading-relaxed`}>
+                        <p css={tw`text-sm text-neutral-400 relative z-10 leading-relaxed font-medium`}>
                             Elevate your Minecraft Hosting<br/>experience on our robust network,<br/>with seamless support and instant<br/>server deployment.
                         </p>
-                        <img 
-                            src="https://raw.githubusercontent.com/pterodactyl/panel/develop/public/favicons/apple-touch-icon.png" 
-                            style={{ filter: 'brightness(0.8) contrast(1.2)' }}
-                            css={tw`absolute -bottom-10 -right-10 w-64 opacity-50 z-0 select-none scale-[1.3] transform rotate-[20deg]`}
-                            alt="Minecraft Block"
-                        />
+                        <div css={tw`absolute bottom-0 right-0 p-4 opacity-40 z-0`}>
+                            <img 
+                                src="https://raw.githubusercontent.com/pterodactyl/panel/develop/public/favicons/apple-touch-icon.png" 
+                                css={tw`w-48 h-48 transform rotate-12 translate-x-12 translate-y-12`}
+                                style={{ filter: 'grayscale(1) brightness(1.5)' }}
+                                alt="Minecraft Block"
+                            />
+                        </div>
+
+                        {rootAdmin && (
+                            <div css={tw`absolute bottom-6 left-8 z-10`}>
+                                <div css={tw`flex items-center bg-[#1e202d] border border-[#272a38] rounded-xl py-2 px-4 shadow-lg`}>
+                                    <p css={tw`text-[10px] font-bold text-neutral-500 mr-3 uppercase tracking-widest`}>Admin Mode</p>
+                                    <Switch
+                                        name={'show_all_servers'}
+                                        defaultChecked={showOnlyAdmin}
+                                        onChange={() => setShowOnlyAdmin((s) => !s)}
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

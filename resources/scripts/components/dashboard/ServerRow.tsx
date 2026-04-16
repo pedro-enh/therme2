@@ -98,20 +98,25 @@ export default ({ server, className }: { server: Server; className?: string }) =
                 history.push(`/server/${server.id}`);
             }}
         >
-            <div css={tw`flex items-center gap-6`}>
-                <div css={tw`relative w-20 h-20 bg-green-500 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0 overflow-hidden`}>
-                    <FontAwesomeIcon icon={faServer} css={tw`text-3xl text-green-900 opacity-50`} />
-                    <div css={tw`absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4`}>
-                        <div className={'status-dot'} css={tw`w-4 h-4`} />
+            <div css={tw`flex items-center gap-8`}>
+                <div css={tw`relative w-24 h-24 bg-[#1e202d] rounded-2xl flex items-center justify-center shadow-inner flex-shrink-0 overflow-hidden border border-[#272a38]`}>
+                    <img 
+                        src={serverImage} 
+                        css={tw`w-16 h-16 object-contain z-10`}
+                        style={{ filter: !isRunning ? 'grayscale(1) opacity(0.5)' : 'none' }}
+                    />
+                    <div css={tw`absolute inset-0 bg-green-500 opacity-10 z-0`} />
+                    <div css={tw`absolute bottom-2 right-2`}>
+                        <div className={'status-dot'} css={tw`w-4 h-4 shadow-glow`} />
                     </div>
                 </div>
 
                 <div css={tw`flex flex-col`}>
-                    <div css={tw`flex items-center gap-3 mb-1`}>
-                        <p css={tw`text-lg font-bold text-white truncate`}>{server.name}</p>
-                        <div css={tw`flex items-center gap-1.5 text-xs`}>
+                    <div css={tw`flex items-center gap-4 mb-2`}>
+                        <p css={tw`text-xl font-black text-white truncate tracking-tight`}>{server.name}</p>
+                        <div css={tw`flex items-center gap-2 px-3 py-1 bg-black/20 rounded-full border border-white/5`}>
                             <div className={'status-dot'} css={tw`w-2 h-2 border-none`} />
-                            <span css={tw`text-neutral-400 capitalize`}>
+                            <span css={tw`text-[10px] uppercase font-bold text-neutral-400 tracking-widest`}>
                                 {!stats || isSuspended 
                                     ? (isSuspended ? 'Suspended' : server.status || 'Offline')
                                     : stats.status}
@@ -119,8 +124,8 @@ export default ({ server, className }: { server: Server; className?: string }) =
                         </div>
                     </div>
                     
-                    <div css={tw`flex items-center gap-4 text-xs font-mono text-neutral-400 mt-2`}>
-                        <div css={tw`inline-flex items-center bg-[#272a38] px-3 py-1.5 rounded-md text-neutral-300`}>
+                    <div css={tw`flex items-center gap-6 text-xs text-neutral-400 mt-1`}>
+                        <div css={tw`font-mono bg-black/20 px-4 py-2 rounded-xl text-blue-400 font-bold border border-blue-500/10`}>
                             {server.allocations
                                 .filter((alloc) => alloc.isDefault)
                                 .map((allocation) => (
@@ -130,46 +135,46 @@ export default ({ server, className }: { server: Server; className?: string }) =
                                 ))}
                         </div>
 
-                        {!stats || isSuspended ? null : (
-                            <div css={tw`flex items-center gap-2`}>
-                                {alarms.cpu || alarms.memory || alarms.disk ? (
-                                    <React.Fragment>
-                                        <FontAwesomeIcon icon={faExclamationTriangle} css={tw`text-yellow-500`} />
-                                        <span css={tw`text-yellow-500 font-sans font-medium`}>
-                                            {stats.cpuUsagePercent.toFixed(0)}% RAM, {stats.cpuUsagePercent.toFixed(0)}% CPU
-                                        </span>
-                                    </React.Fragment>
-                                ) : (
-                                    <span css={tw`text-neutral-500 font-sans`}>Shared with others</span>
-                                )}
+                        {!stats || isSuspended ? (
+                            <span css={tw`text-neutral-500 font-medium`}>Shared with standard support</span>
+                        ) : (
+                            <div css={tw`flex items-center gap-4`}>
+                                <div css={tw`flex items-center gap-2`}>
+                                    <FontAwesomeIcon icon={faExclamationTriangle} css={tw`text-yellow-500/50`} />
+                                    <span css={tw`text-neutral-400 font-medium`}>
+                                        {stats.cpuUsagePercent.toFixed(0)}% RAM, {stats.cpuUsagePercent.toFixed(0)}% CPU
+                                    </span>
+                                </div>
                             </div>
                         )}
                     </div>
                 </div>
             </div>
 
-            <div css={tw`flex items-center gap-3 ml-4`} onClick={(e) => e.stopPropagation()}>
+            <div css={tw`flex items-center gap-4 ml-4`} onClick={(e) => e.stopPropagation()}>
                 <Link 
                     to={`/server/${server.id}`}
                     css={[
-                        tw`flex items-center justify-center w-10 h-10 rounded-full text-white transition-all shadow-glow`,
-                        isRunning ? tw`bg-orange-500 hover:bg-orange-400` : tw`bg-blue-500 hover:bg-blue-400`
+                        tw`flex items-center justify-center w-12 h-12 rounded-full text-white transition-all shadow-glow hover:scale-110 active:scale-95`,
+                        isRunning ? tw`bg-orange-500 shadow-orange-500/20` : tw`bg-blue-500 shadow-blue-500/20`
                     ]}
                 >
-                    <FontAwesomeIcon icon={isRunning ? faSync : faPlay} />
+                    <FontAwesomeIcon icon={isRunning ? faSync : faPlay} css={tw`text-lg`} />
                 </Link>
-                <QuickActionNode to={`/server/${server.id}/files`}>
-                    <FontAwesomeIcon icon={faFolder} />
-                </QuickActionNode>
-                <QuickActionNode to={`/server/${server.id}/console`}>
-                    <FontAwesomeIcon icon={faTerminal} />
-                </QuickActionNode>
-                <QuickActionNode to={`/server/${server.id}/databases`}>
-                    <FontAwesomeIcon icon={faDatabase} />
-                </QuickActionNode>
-                <QuickActionNode to={`/server/${server.id}/settings`}>
-                    <FontAwesomeIcon icon={faCog} />
-                </QuickActionNode>
+                <div css={tw`flex items-center bg-black/20 p-1.5 rounded-full border border-white/5 gap-2`}>
+                    <QuickActionNode to={`/server/${server.id}/files`} css={tw`w-9 h-9`}>
+                        <FontAwesomeIcon icon={faFolder} size="sm" />
+                    </QuickActionNode>
+                    <QuickActionNode to={`/server/${server.id}/console`} css={tw`w-9 h-9`}>
+                        <FontAwesomeIcon icon={faTerminal} size="sm" />
+                    </QuickActionNode>
+                    <QuickActionNode to={`/server/${server.id}/databases`} css={tw`w-9 h-9`}>
+                        <FontAwesomeIcon icon={faDatabase} size="sm" />
+                    </QuickActionNode>
+                    <QuickActionNode to={`/server/${server.id}/settings`} css={tw`w-9 h-9`}>
+                        <FontAwesomeIcon icon={faCog} size="sm" />
+                    </QuickActionNode>
+                </div>
             </div>
         </ProjectCard>
     );
