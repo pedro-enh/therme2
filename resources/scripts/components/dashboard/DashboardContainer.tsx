@@ -111,7 +111,7 @@ export default () => {
                     </div>
                 </div>
 
-                <div css={tw`w-full lg:w-80 shrink-0 hidden lg:block`}>
+                <div css={tw`w-full lg:w-80 flex-shrink-0 hidden lg:block`}>
                     <div css={tw`bg-[#161821] rounded-xl p-6 relative overflow-hidden h-[300px] shadow-lg`} style={{ border: '1px solid #232736' }}>
                         <h2 css={tw`text-xl font-bold text-white mb-4 relative z-10 leading-snug tracking-tight`}>
                             All game servers now<br/>come with free DDoS<br/>Protection

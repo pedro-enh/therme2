@@ -72,7 +72,7 @@ export default () => {
                         <Link to={'/'} css={tw`flex items-center justify-center w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white transition-colors`}>
                             <FontAwesomeIcon icon={faChevronLeft} size="sm" />
                         </Link>
-                        <div css={tw`w-8 h-8 rounded shrink-0 hidden md:flex items-center justify-center bg-white`}>
+                        <div css={tw`w-8 h-8 rounded flex-shrink-0 hidden md:flex items-center justify-center bg-white`}>
                             <FontAwesomeIcon icon={faRocket} css={tw`text-black`} />
                         </div>
                         <div css={tw`flex items-center h-full gap-5 mx-2 overflow-x-auto overflow-y-hidden`}>

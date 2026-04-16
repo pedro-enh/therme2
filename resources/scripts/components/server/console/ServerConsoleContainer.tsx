@@ -46,7 +46,7 @@ const ServerConsoleContainer = () => {
             {/* Top Info Banner */}
             <div css={tw`bg-[#161821] rounded-2xl p-6 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between border border-[#1e202d]`}>
                 <div css={tw`flex items-center gap-6 mb-4 md:mb-0`}>
-                    <div css={tw`relative w-20 h-20 bg-green-500 rounded-xl flex items-center justify-center shadow-lg shrink-0 overflow-hidden`}>
+                    <div css={tw`relative w-20 h-20 bg-green-500 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0 overflow-hidden`}>
                         <FontAwesomeIcon icon={faServer} css={tw`text-3xl text-green-900 opacity-50`} />
                         <div css={tw`absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4`}>
                             <div css={[
@@ -90,7 +90,7 @@ const ServerConsoleContainer = () => {
                     </div>
                 </div>
                 
-                <div css={tw`shrink-0`}>
+                <div css={tw`flex-shrink-0`}>
                     <Can action={['control.start', 'control.stop', 'control.restart']} matchAny>
                         <PowerButtons className={'flex space-x-2'} />
                     </Can>

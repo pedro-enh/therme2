@@ -99,7 +99,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
             }}
         >
             <div css={tw`flex items-center gap-6`}>
-                <div css={tw`relative w-20 h-20 bg-green-500 rounded-xl flex items-center justify-center shadow-lg shrink-0 overflow-hidden`}>
+                <div css={tw`relative w-20 h-20 bg-green-500 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0 overflow-hidden`}>
                     <FontAwesomeIcon icon={faServer} css={tw`text-3xl text-green-900 opacity-50`} />
                     <div css={tw`absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4`}>
                         <div className={'status-dot'} css={tw`w-4 h-4`} />
