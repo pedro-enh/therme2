@@ -156,7 +156,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
                     to={`/server/${server.id}`}
                     css={[
                         tw`flex items-center justify-center w-12 h-12 rounded-full text-white transition-all shadow-glow hover:scale-110 active:scale-95`,
-                        isRunning ? tw`bg-orange-500 shadow-orange-500/20` : tw`bg-blue-500 shadow-blue-500/20`
+                        isRunning ? tw`bg-orange-500 shadow-xl` : tw`bg-blue-500 shadow-xl`
                     ]}
                 >
                     <FontAwesomeIcon icon={isRunning ? faSync : faPlay} css={tw`text-lg`} />
