@@ -5,8 +5,10 @@ export default createGlobalStyle`
     body {
         ${tw`font-sans text-neutral-300`};
         letter-spacing: 0.015em;
-        background-color: #000000;
+        background-color: #0b0c13;
         background-attachment: fixed;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 
     h1, h2, h3, h4, h5, h6 {

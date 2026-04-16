@@ -17,15 +17,13 @@ const RightNavigation = styled.div`
     & > a,
     & > button,
     & > .navigation-link {
-        ${tw`flex items-center h-full no-underline text-neutral-400 px-6 cursor-pointer transition-colors duration-200 relative`};
+        ${tw`flex items-center h-full no-underline text-neutral-400 px-4 cursor-pointer transition-colors duration-200 relative`};
 
         &:active,
         &:hover {
-            ${tw`text-neutral-100 bg-neutral-800/30`};
+            ${tw`text-white`};
         }
 
-        &:active,
-        &:hover,
         &.active {
             ${tw`text-white`};
         }
@@ -37,7 +35,11 @@ const onTriggerNavButton = () => {
     if (sidebar) sidebar.classList.toggle('active-nav');
 };
 
-export default () => {
+interface Props {
+    children?: React.ReactNode;
+}
+
+export default ({ children }: Props) => {
     const name = useStoreState((state: ApplicationStore) => state.settings.data!.name);
     const rootAdmin = useStoreState((state: ApplicationStore) => state.user.data!.rootAdmin);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -64,35 +66,40 @@ export default () => {
         <div 
             className={'topbar sticky top-0 z-50'} 
             style={{ 
-                background: 'rgba(0, 0, 0, 0.8)', 
-                backdropFilter: 'saturate(180%) blur(5px)',
-                WebkitBackdropFilter: 'saturate(180%) blur(5px)',
-                borderBottom: '1px solid #27272a',
+                background: '#161821', 
+                borderBottom: '1px solid #1e202d',
             }}
         >
             <SpinnerOverlay visible={isLoggingOut} />
-            <div className={'mx-auto w-full flex items-center h-[4rem] max-w-[1200px]'}>
-                {showSidebar && (
+            <div className={'mx-auto w-full flex items-center h-[4.5rem] max-w-[1400px] px-4'}>
+                {showSidebar && !children && (
                     <button
-                        className='navbar-button text-neutral-400 hover:text-white transition-colors duration-200 px-4'
+                        className='navbar-button text-neutral-400 hover:text-white transition-colors duration-200 px-4 lg:hidden'
                         onClick={onTriggerNavButton}
                     >
                         <FontAwesomeIcon icon={faBars} size="lg" />
                     </button>
                 )}
 
-                <div id={'logo'} className={'flex-1 px-6'}>
-                    <Link
-                        to={'/'}
-                        className={
-                            'text-xl font-sans font-bold tracking-tight no-underline text-white transition-colors duration-300 flex items-center gap-2 hover:text-neutral-300'
-                        }
-                    >
-                        {name}
-                    </Link>
-                </div>
+                {!children ? (
+                    <div id={'logo'} className={'flex-1 px-4'}>
+                        <Link
+                            to={'/'}
+                            className={
+                                'text-xl font-bold tracking-tight no-underline text-white transition-colors duration-300 flex items-center gap-2 hover:text-neutral-300'
+                            }
+                            style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}
+                        >
+                            ROCKET<span css={tw`text-blue-500`}>NODE</span>
+                        </Link>
+                    </div>
+                ) : (
+                    <div css={tw`flex-1 flex items-center h-full`}>
+                        {children}
+                    </div>
+                )}
 
-                <RightNavigation className={'flex h-full items-center justify-center'}>
+                <RightNavigation className={'flex h-full items-center justify-end px-2 gap-2'}>
                     <SearchContainer />
                     <Tooltip placement={'bottom'} content={'Dashboard'}>
                         <NavLink to={'/'} exact>

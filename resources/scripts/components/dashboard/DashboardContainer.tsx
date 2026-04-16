@@ -24,6 +24,8 @@ export default () => {
     const rootAdmin = useStoreState((state) => state.user.data!.rootAdmin);
     const [showOnlyAdmin, setShowOnlyAdmin] = usePersistedState(`${uuid}:show_all_servers`, false);
 
+    const username = useStoreState((state) => state.user.data!.username);
+
     const { data: servers, error } = useSWR<PaginatedResult<Server>>(
         ['/api/client/servers', showOnlyAdmin && rootAdmin, page],
         () => getServers({ page, type: showOnlyAdmin && rootAdmin ? 'admin' : undefined })
@@ -48,16 +50,15 @@ export default () => {
         if (!error) clearFlashes('dashboard');
     }, [error]);
 
+    const formattedUsername = username.charAt(0).toUpperCase() + username.slice(1);
+
     return (
         <PageContentBlock className='content-dashboard' title={'Dashboard'} showFlashKey={'dashboard'}>
-            <div css={tw`mb-6 mt-4 flex justify-between items-end border-b border-neutral-800 pb-4`}>
+            <div css={tw`mb-10 mt-8 flex justify-between items-end`}>
                 <div>
-                    <h1 css={tw`text-2xl font-bold tracking-tight text-white m-0`}>
-                        {showOnlyAdmin ? "Other Servers" : 'Your Servers'}
+                    <h1 css={tw`text-4xl font-bold tracking-tight text-white m-0`} style={{ fontFamily: "'Space Grotesk', 'Inter', sans-serif" }}>
+                        Hi, <span css={tw`text-blue-100`}>{formattedUsername}</span>
                     </h1>
-                    <p css={tw`text-sm text-neutral-400 mt-1`}>
-                        Manage and control your active instances.
-                    </p>
                 </div>
                 {rootAdmin && (
                     <div css={tw`flex items-center bg-neutral-900 border border-neutral-800 rounded-lg py-2 px-3`}>
@@ -73,31 +74,60 @@ export default () => {
                 )}
             </div>
             
-            {!servers ? (
-                <div css={tw`mt-20`}>
-                    <Spinner centered size={'large'} />
+            <div css={tw`flex flex-col lg:flex-row gap-8`}>
+                <div css={tw`flex-1`}>
+                    {!servers ? (
+                        <div css={tw`mt-20`}>
+                            <Spinner centered size={'large'} />
+                        </div>
+                    ) : (
+                        <Pagination data={servers} onPageSelect={setPage}>
+                            {({ items }) =>
+                                items.length > 0 ? (
+                                    <div css={tw`flex flex-col gap-4`}>
+                                        {items.map((server) => (
+                                            <ServerRow key={server.uuid} server={server} />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div css={tw`mt-12 flex flex-col items-center justify-center p-12 rounded-xl border border-neutral-800 border-dashed bg-neutral-900/20`}>
+                                        <p css={tw`text-lg font-medium text-neutral-300`}>
+                                            {showOnlyAdmin
+                                                ? 'No other servers found.'
+                                                : 'You do not have any servers yet.'}
+                                        </p>
+                                    </div>
+                                )
+                            }
+                        </Pagination>
+                    )}
+                    
+                    <div css={tw`mt-6`}>
+                        <p css={tw`text-sm font-semibold text-neutral-400 mb-1`}>Not finding your server?</p>
+                        <p css={tw`text-xs text-neutral-500`}>
+                            You can try searching for it using the top search icon or checking if<br/>
+                            it's still paid for in the Account -{'>'} Billing menu.
+                        </p>
+                    </div>
                 </div>
-            ) : (
-                <Pagination data={servers} onPageSelect={setPage}>
-                    {({ items }) =>
-                        items.length > 0 ? (
-                            <div css={tw`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`}>
-                                {items.map((server) => (
-                                    <ServerRow key={server.uuid} server={server} />
-                                ))}
-                            </div>
-                        ) : (
-                            <div css={tw`mt-12 flex flex-col items-center justify-center p-12 rounded-xl border border-neutral-800 border-dashed bg-neutral-900/20`}>
-                                <p css={tw`text-lg font-medium text-neutral-300`}>
-                                    {showOnlyAdmin
-                                        ? 'No other servers found.'
-                                        : 'You do not have any servers yet.'}
-                                </p>
-                            </div>
-                        )
-                    }
-                </Pagination>
-            )}
+
+                <div css={tw`w-full lg:w-80 shrink-0 hidden lg:block`}>
+                    <div css={tw`bg-[#161821] rounded-xl p-6 relative overflow-hidden h-[300px] shadow-lg`} style={{ border: '1px solid #232736' }}>
+                        <h2 css={tw`text-xl font-bold text-white mb-4 relative z-10 leading-snug tracking-tight`}>
+                            All game servers now<br/>come with free DDoS<br/>Protection
+                        </h2>
+                        <p css={tw`text-sm text-neutral-400 relative z-10 leading-relaxed`}>
+                            Elevate your Minecraft Hosting<br/>experience on our robust network,<br/>with seamless support and instant<br/>server deployment.
+                        </p>
+                        <img 
+                            src="https://raw.githubusercontent.com/pterodactyl/panel/develop/public/favicons/apple-touch-icon.png" 
+                            style={{ filter: 'brightness(0.8) contrast(1.2)' }}
+                            css={tw`absolute -bottom-10 -right-10 w-64 opacity-50 z-0 select-none scale-[1.3] transform rotate-[20deg]`}
+                            alt="Minecraft Block"
+                        />
+                    </div>
+                </div>
+            </div>
         </PageContentBlock>
     );
 };

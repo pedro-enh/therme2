@@ -14,7 +14,8 @@ import { useStoreState } from 'easy-peasy';
 import InstallListener from '@/components/server/InstallListener';
 import ErrorBoundary from '@/components/elements/ErrorBoundary';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faExternalLinkAlt, faChevronLeft, faRocket } from '@fortawesome/free-solid-svg-icons';
+import tw from 'twin.macro';
 import { useLocation } from 'react-router';
 import ConflictStateRenderer from '@/components/server/ConflictStateRenderer';
 import PermissionRoute from '@/components/elements/PermissionRoute';
@@ -65,7 +66,40 @@ export default () => {
 
     return (
         <React.Fragment key={'server-router'}>
-            <NavigationBar />
+            <NavigationBar>
+                {uuid && id && (
+                    <div css={tw`flex items-center gap-6 h-full`}>
+                        <Link to={'/'} css={tw`flex items-center justify-center w-8 h-8 rounded-full bg-neutral-800 text-neutral-400 hover:text-white transition-colors`}>
+                            <FontAwesomeIcon icon={faChevronLeft} size="sm" />
+                        </Link>
+                        <div css={tw`w-8 h-8 rounded shrink-0 hidden md:flex items-center justify-center bg-white`}>
+                            <FontAwesomeIcon icon={faRocket} css={tw`text-black`} />
+                        </div>
+                        <div css={tw`flex items-center h-full gap-5 mx-2 overflow-x-auto overflow-y-hidden`}>
+                            {routes.server
+                                .filter((route) => !!route.name)
+                                .map((route) =>
+                                    route.permission ? (
+                                        <Can key={route.path} action={route.permission} matchAny>
+                                            <NavLink to={to(route.path, true)} exact={route.exact} activeClassName="active text-white border-white" css={tw`flex flex-col justify-center h-full text-neutral-400 hover:text-neutral-200 transition-colors text-sm font-semibold border-b-2 border-transparent whitespace-nowrap`}>
+                                                {route.name}
+                                            </NavLink>
+                                        </Can>
+                                    ) : (
+                                        <NavLink key={route.path} to={to(route.path, true)} exact={route.exact} activeClassName="active text-white border-white" css={tw`flex flex-col justify-center h-full text-neutral-400 hover:text-neutral-200 transition-colors text-sm font-semibold border-b-2 border-transparent whitespace-nowrap`}>
+                                            {route.name}
+                                        </NavLink>
+                                    )
+                                )}
+                            {rootAdmin && (
+                                <a href={`/admin/servers/view/${serverId}`} target={'_blank'} css={tw`flex items-center h-full text-neutral-400 hover:text-neutral-200 transition-colors text-sm font-semibold`}>
+                                    Admin
+                                </a>
+                            )}
+                        </div>
+                    </div>
+                )}
+            </NavigationBar>
             {!uuid || !id ? (
                 error ? (
                     <ServerError message={error} />
@@ -75,38 +109,7 @@ export default () => {
             ) : (
                 <>
                     <CSSTransition timeout={150} classNames={'fade'} appear in>
-                        <Sidebar>
-                            {routes.server
-                                .filter((route) => !!route.name)
-                                .map((route) =>
-                                    route.permission ? (
-                                        <Can key={route.path} action={route.permission} matchAny>
-                                            <NavLink to={to(route.path, true)} exact={route.exact}>
-                                                <div className='icon'>
-                                                    <FontAwesomeIcon icon={route.iconProp as IconProp} />
-                                                </div>
-                                                {route.name}
-                                            </NavLink>
-                                        </Can>
-                                    ) : (
-                                        <NavLink key={route.path} to={to(route.path, true)} exact={route.exact}>
-                                            <div className='icon'>
-                                                <FontAwesomeIcon icon={route.iconProp as IconProp} />
-                                            </div>
-                                            {route.name}{' '}
-                                        </NavLink>
-                                    )
-                                )}
-                            {rootAdmin && (
-                                // eslint-disable-next-line react/jsx-no-target-blank
-                                <a href={`/admin/servers/view/${serverId}`} target={'_blank'}>
-                                    <div className='icon'>
-                                        <FontAwesomeIcon icon={faExternalLinkAlt} />
-                                    </div>
-                                    Admin
-                                </a>
-                            )}
-                        </Sidebar>
+                        <React.Fragment />
                     </CSSTransition>
                     <InstallListener />
                     <TransferListener />

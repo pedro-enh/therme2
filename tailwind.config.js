@@ -7,17 +7,21 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                header: ['"Inter"', '"Roboto"', 'system-ui', 'sans-serif'],
+                header: ['"Space Grotesk"', '"Inter"', 'system-ui', 'sans-serif'],
                 sans: ['"Inter"', 'system-ui', 'sans-serif'],
             },
             colors: {
-                black: '#000000',
+                black: '#0b0c13',
                 primary: colors.blue,
-                accent: '#3b82f6', // Bright modern blue
+                accent: '#3b82f6',
                 orange: colors.orange,
-                gray: colors.zinc, // Replace gray entirely with zinc
-                neutral: colors.zinc, // Modern slate-like grays (zinc)
+                gray: colors.zinc,
+                neutral: colors.zinc,
                 cyan: colors.cyan,
+                'blue-100': '#dbeafe',
+                'blue-500': '#3b82f6',
+                'orange-400': '#fb923c',
+                'orange-500': '#f97316',
             },
             fontSize: {
                 '2xs': '0.625rem',
