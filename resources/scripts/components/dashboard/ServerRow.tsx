@@ -83,9 +83,24 @@ export default ({ server, className }: { server: Server; className?: string }) =
         alarms.disk = server.limits.disk === 0 ? false : isAlarmState(stats.diskUsageInBytes, server.limits.disk);
     }
 
+    const onCopyIP = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        const defaultAllocation = server.allocations.find(a => a.isDefault);
+        if (defaultAllocation) {
+            const text = defaultAllocation.alias || `${ip(defaultAllocation.ip)}:${defaultAllocation.port}`;
+            navigator.clipboard.writeText(text);
+        }
+    };
+
     let serverImage = 'https://raw.githubusercontent.com/pterodactyl/panel/develop/public/favicons/apple-touch-icon.png';
-    if (server.name.toLowerCase().includes('mine')) {
-        serverImage = 'https://raw.githubusercontent.com/pterodactyl/panel/develop/public/favicons/apple-touch-icon.png'; // default grass block
+    const lowerName = server.name.toLowerCase();
+    
+    if (lowerName.includes('mine') || lowerName.includes('mc') || server.dockerImage.includes('minecraft')) {
+        serverImage = 'https://raw.githubusercontent.com/pterodactyl/panel/develop/public/favicons/apple-touch-icon.png';
+    } else if (lowerName.includes('fivem') || lowerName.includes('gta') || server.dockerImage.includes('fivem')) {
+        serverImage = 'https://icons.veryicon.com/png/o/business/traditional-marketing-icon/fivem.png';
+    } else if (lowerName.includes('discord') || server.dockerImage.includes('bot')) {
+        serverImage = 'https://cdn-icons-png.flaticon.com/512/5968/5968756.png';
     }
 
     const isRunning = stats?.status === 'running';
@@ -104,6 +119,9 @@ export default ({ server, className }: { server: Server; className?: string }) =
                         src={serverImage} 
                         css={tw`w-16 h-16 object-contain z-10`}
                         style={{ filter: !isRunning ? 'grayscale(1) opacity(0.5)' : 'none' }}
+                        onError={(e) => {
+                            e.currentTarget.src = 'https://raw.githubusercontent.com/pterodactyl/panel/develop/public/favicons/apple-touch-icon.png';
+                        }}
                     />
                     <div css={tw`absolute inset-0 bg-green-500 opacity-10 z-0`} />
                     <div css={tw`absolute bottom-2 right-2`}>
@@ -125,12 +143,16 @@ export default ({ server, className }: { server: Server; className?: string }) =
                     </div>
                     
                     <div css={tw`flex items-center gap-6 text-xs text-neutral-400 mt-1`}>
-                        <div css={tw`font-mono bg-black/20 px-4 py-2 rounded-xl text-blue-400 font-bold border border-blue-500/10`}>
+                        <div 
+                            onClick={onCopyIP}
+                            css={tw`font-mono bg-black/20 px-4 py-2 rounded-xl text-blue-400 font-bold border border-blue-500/10 cursor-alias hover:bg-blue-500/10 transition-colors active:scale-95 transform`}
+                            title="Click to copy IP"
+                        >
                             {server.allocations
                                 .filter((alloc) => alloc.isDefault)
                                 .map((allocation) => (
                                     <React.Fragment key={allocation.ip + allocation.port.toString()}>
-                                        {allocation.alias || ip(allocation.ip)}
+                                        {allocation.alias || `${ip(allocation.ip)}:${allocation.port}`}
                                     </React.Fragment>
                                 ))}
                         </div>
