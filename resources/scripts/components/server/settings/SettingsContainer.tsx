@@ -58,14 +58,16 @@ export default () => {
                         </TitledGreyBox>
                     </Can>
                     <TitledGreyBox title={'Debug Information'} css={tw`mb-6 md:mb-10`}>
-                                <code css={tw`font-mono bg-[#1e202d] border border-[#272a38] rounded py-1 px-2`}>{node}</code>
+                        <div css={tw`flex items-center justify-between text-sm`}>
+                            <p>Node</p>
+                            <code css={tw`font-mono bg-[#1e202d] border border-[#272a38] rounded py-1 px-2`}>{node}</code>
+                        </div>
+                        <CopyOnClick text={uuid}>
+                            <div css={tw`flex items-center justify-between mt-2 text-sm`}>
+                                <p>Server ID</p>
+                                <code css={tw`font-mono bg-[#1e202d] border border-[#272a38] rounded py-1 px-2`}>{uuid}</code>
                             </div>
-                            <CopyOnClick text={uuid}>
-                                <div css={tw`flex items-center justify-between mt-2 text-sm`}>
-                                    <p>Server ID</p>
-                                    <code css={tw`font-mono bg-[#1e202d] border border-[#272a38] rounded py-1 px-2`}>{uuid}</code>
-                                </div>
-                            </CopyOnClick>
+                        </CopyOnClick>
                     </TitledGreyBox>
                 </div>
                 <div css={tw`w-full mt-6 md:flex-1 md:mt-0`}>
