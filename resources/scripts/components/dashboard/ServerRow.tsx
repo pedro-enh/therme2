@@ -145,7 +145,7 @@ export default ({ server, className }: { server: Server; className?: string }) =
                     <div css={tw`flex items-center gap-6 text-xs text-neutral-400 mt-1`}>
                         <div 
                             onClick={onCopyIP}
-                            css={tw`font-mono bg-black/20 px-4 py-2 rounded-xl text-blue-400 font-bold border border-blue-500/10 cursor-alias hover:bg-blue-500/10 transition-colors active:scale-95 transform`}
+                            css={tw`font-mono bg-black/20 px-4 py-2 rounded-xl text-blue-400 font-bold border border-blue-500/10 cursor-pointer hover:bg-blue-500/10 transition-colors active:scale-95 transform`}
                             title="Click to copy IP"
                         >
                             {server.allocations
